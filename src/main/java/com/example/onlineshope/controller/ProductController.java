@@ -51,6 +51,12 @@ public class ProductController {
         return "redirect:/";
     }
 
+    @GetMapping("/delete/{id}")
+    public String deleteProduct(@PathVariable("id") int id) {
+        productService.deleteById(id);
+        return "redirect:/product/list";
+    }
+
     @PostMapping("/add")
     public String addProduct(@ModelAttribute Product product,
                              @RequestParam("pics") List<MultipartFile> pics,

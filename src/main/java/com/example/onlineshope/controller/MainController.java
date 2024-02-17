@@ -2,7 +2,7 @@ package com.example.onlineshope.controller;
 
 import com.example.onlineshope.service.CategoryService;
 import com.example.onlineshope.service.ProductService;
-import com.example.onlineshope.util.GetImageUtil;
+import com.example.onlineshope.util.PictureUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
@@ -36,11 +36,11 @@ public class MainController {
 
     @GetMapping(value = "/getImageProduct", produces = MediaType.IMAGE_JPEG_VALUE)
     public @ResponseBody byte[] getImageProduct(@RequestParam("picName") String picName) throws IOException {
-        return GetImageUtil.getImage(picName, uploadDirectoryProduct);
+        return PictureUtil.getImage(picName, uploadDirectoryProduct);
     }
 
     @GetMapping(value = "/getImageUser", produces = MediaType.IMAGE_JPEG_VALUE)
     public @ResponseBody byte[] getImageUser(@RequestParam("picName") String picName) throws IOException {
-        return GetImageUtil.getImage(picName, uploadDirectoryUser);
+        return PictureUtil.getImage(picName, uploadDirectoryUser);
     }
 }

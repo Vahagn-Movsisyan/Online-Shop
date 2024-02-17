@@ -4,6 +4,7 @@ import com.example.onlineshope.entity.Product;
 import com.example.onlineshope.entity.ProductPicture;
 import com.example.onlineshope.repository.ProductPictureRepository;
 import com.example.onlineshope.service.ProductPictureService;
+import com.example.onlineshope.util.PictureUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -23,13 +24,8 @@ public class ProductPictureServiceImpl implements ProductPictureService {
     private String uploadDirectory;
 
     @Override
-    public ProductPicture save(ProductPicture productPicture) {
-        return productPictureRepository.save(productPicture);
-    }
-
-    @Override
-    public List<ProductPicture> findAllByProduct(Product product) {
-        return productPictureRepository.findAllByProduct(product);
+    public List<ProductPicture> findByProductId(int id) {
+        return productPictureRepository.findByProductId(id);
     }
 
     @Override
@@ -49,5 +45,20 @@ public class ProductPictureServiceImpl implements ProductPictureService {
                         .build());
             }
         }
+    }
+
+    @Override
+    public void deleteAllByProductId(int id) {
+        productPictureRepository.deleteAllByProductId(id);
+    }
+
+    @Override
+    public ProductPicture save(ProductPicture productPicture) {
+        return productPictureRepository.save(productPicture);
+    }
+
+    @Override
+    public List<ProductPicture> findAllByProduct(Product product) {
+        return productPictureRepository.findAllByProduct(product);
     }
 }

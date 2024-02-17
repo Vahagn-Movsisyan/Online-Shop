@@ -6,15 +6,13 @@ import com.example.onlineshope.exceptions.EmailIsPresentException;
 import com.example.onlineshope.exceptions.PasswordNotMuchException;
 import com.example.onlineshope.repository.UserRepository;
 import com.example.onlineshope.service.UserService;
-import com.example.onlineshope.util.MultipartUtil;
+import com.example.onlineshope.util.PictureUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 
@@ -38,7 +36,7 @@ public class UserServiceImpl implements UserService {
             throw new PasswordNotMuchException("Passwords do not match");
         }
 
-        MultipartUtil.processImageUploadUser(user, multipartFile, uploadDirectory);
+        PictureUtil.processImageUploadUser(user, multipartFile, uploadDirectory);
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setUserRole(UserRole.USER);
@@ -52,7 +50,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User update(User user, MultipartFile multipartFile) throws IOException {
-        MultipartUtil.processImageUploadUser(user, multipartFile, uploadDirectory);
+        PictureUtil.processImageUploadUser(user, multipartFile, uploadDirectory);
         return userRepository.save(user);
     }
 
