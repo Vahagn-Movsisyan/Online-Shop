@@ -6,6 +6,7 @@ import com.example.onlineshope.repository.ProductPictureRepository;
 import com.example.onlineshope.service.ProductPictureService;
 import com.example.onlineshope.util.PictureUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;

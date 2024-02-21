@@ -6,6 +6,7 @@ import com.example.onlineshope.service.CategoryService;
 import com.example.onlineshope.service.ProductPictureService;
 import com.example.onlineshope.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -22,6 +23,7 @@ import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 @RequestMapping("/product")
 public class ProductController {
 
@@ -52,8 +54,17 @@ public class ProductController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteProduct(@PathVariable("id") int id) {
-        productService.deleteById(id);
+    public String deleteProduct(@PathVariable("id") int id, @AuthenticationPrincipal SpringUser springUser) {
+        Optional<Product> byId = productService.findById(id);
+
+        byId.ifPresent(product -> {
+            log.info("product with id {} was delete {} with id {} and email {}",
+                    product.getId(),
+                    springUser.getUser().getUserRole(),
+                    springUser.getUser().getId(),
+                    springUser.getUser().getEmail());
+            productService.deleteById(id);
+        });
         return "redirect:/product/list";
     }
 
@@ -63,6 +74,12 @@ public class ProductController {
                              @AuthenticationPrincipal SpringUser springUser) {
         product.setUser(springUser.getUser());
         productPictureService.saveAll(productService.save(product), pics);
+
+        log.info("product with name {} was add {} with id {} and email {}",
+                product.getName(),
+                springUser.getUser().getUserRole(),
+                springUser.getUser().getId(),
+                springUser.getUser().getEmail());
         return "redirect:/product/list";
     }
 }

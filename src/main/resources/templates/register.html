@@ -75,15 +75,17 @@
                         <a class="gi-help" href="track-order.html">Track Order?</a>
                         <!-- Language Start -->
                         <div class="header-top-lan-curr header-top-lan dropdown">
-                            <button class="dropdown-toggle" data-bs-toggle="dropdown">English
+                            <button class="dropdown-toggle" data-bs-toggle="dropdown">Language
                                 <i class="fi-rr-angle-small-down" aria-hidden="true"></i>
                             </button>
                             <ul class="dropdown-menu">
-                                <li class="active"><a class="dropdown-item" href="#">English</a></li>
-                                <li><a class="dropdown-item" href="#">Italiano</a></li>
+                                <li><a class="dropdown-item" href="?lang=en">English</a></li>
+                                <li><a class="dropdown-item" href="?lang=hy">Հայերեն</a></li>
+                                <li><a class="dropdown-item" href="?lang=ru">Русский</a></li>
                             </ul>
                         </div>
                         <!-- Language End -->
+
                         <!-- Currency Start -->
                         <div class="header-top-lan-curr header-top-curr dropdown">
                             <button class="dropdown-toggle" data-bs-toggle="dropdown">Dollar
@@ -532,13 +534,13 @@
     </div>
 </div>
 <!-- Breadcrumb end -->
-
+<
 <!-- Register section -->
 <section class="gi-register padding-tb-40">
     <div class="container">
         <div class="section-title-2">
-            <h2 class="gi-title">Register<span></span></h2>
-            <p>Best place to buy and sell digital products.</p>
+            <h2 class="gi-title" th:text="#{register.register}">Register<span></span></h2>
+            <p th:text="#{register.bestPlace}">Best place to buy and sell digital products.</p>
             <span th:if="${msg != null}" style="color: red" th:text="${msg}"></span>
         </div>
         <div class="row">
@@ -546,39 +548,40 @@
                 <div class="gi-register-container">
                     <div class="gi-register-form">
                         <form action="/register" method="post" enctype="multipart/form-data">
-                                <span class="gi-register-wrap gi-register-half">
-                                    <label>First Name*</label>
-                                    <input type="text" name="name" placeholder="Enter your first name" required>
-                                </span>
                             <span class="gi-register-wrap gi-register-half">
-                                    <label>Last Name*</label>
-                                    <input type="text" name="surname" placeholder="Enter your last name" required>
-                                </span>
+                                <label th:text="#{register.firstName}">First Name*</label>
+                                <input type="text" name="name" th:placeholder="#{register.firstName}" required>
+                            </span>
                             <span class="gi-register-wrap gi-register-half">
-                                    <label>Email*</label>
-                                    <input type="email" name="email" placeholder="Enter your email add..." required>
-                                </span>
+                                <label th:text="#{register.lastName}">Last Name*</label>
+                                <input type="text" name="surname" th:placeholder="#{register.lastName}" required>
+                            </span>
                             <span class="gi-register-wrap gi-register-half">
-                                    <label>Password*</label>
-                                    <input type="password" name="password" placeholder="Enter your password add..." required>
-                                </span>
+                                <label th:text="#{register.email}">Email*</label>
+                                <input type="email" name="email" th:placeholder="#{register.email}" required>
+                            </span>
                             <span class="gi-register-wrap gi-register-half">
-                                    <label>Confirm Password*</label>
-                                    <input type="password" name="confirmPassword" placeholder="Enter your email add..." required>
-                                </span>
+                                <label th:text="#{register.password}">Password*</label>
+                                <input type="password" name="password" th:placeholder="#{register.password}" required>
+                            </span>
+                            <span class="gi-register-wrap gi-register-half">
+                                <label th:text="#{register.confirmPassword}">Confirm Password*</label>
+                                <input type="password" name="confirmPassword" th:placeholder="#{register.confirmPassword}" required>
+                            </span>
                             <span>
+                                <p th:text="#{register.uploadPicture}"></p>
                                 <input type="file" name="picture">
                             </span>
                             <span class="gi-register-wrap gi-recaptcha">
-                                    <span class="g-recaptcha" data-sitekey="6LfKURIUAAAAAO50vlwWZkyK_G2ywqE52NU7YO0S"
-                                          data-callback="verifyRecaptchaCallback"
-                                          data-expired-callback="expiredRecaptchaCallback"></span>
-                                    <span class="help-block with-errors"></span>
-                                </span>
+                                <span class="g-recaptcha" data-sitekey="6LfKURIUAAAAAO50vlwWZkyK_G2ywqE52NU7YO0S"
+                                      data-callback="verifyRecaptchaCallback"
+                                      data-expired-callback="expiredRecaptchaCallback"></span>
+                                <span class="help-block with-errors"></span>
+                            </span>
                             <span class="gi-register-wrap gi-register-btn">
-                                    <span>Already have an account?<a href="/login/page">Login</a></span>
-                                    <button class="gi-btn-1" type="submit">Register</button>
-                                </span>
+                                <span th:text="#{register.alreadyHaveAccount}">Already have an account?<a href="/login/page">Login</a></span>
+                                <button class="gi-btn-1" type="submit" th:text="#{register.register}">Register</button>
+                            </span>
                         </form>
                     </div>
                 </div>
@@ -586,6 +589,7 @@
         </div>
     </div>
 </section>
+
 <!-- Sample section End -->
 
 <!-- Footer Start -->

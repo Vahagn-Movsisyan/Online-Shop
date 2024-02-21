@@ -75,12 +75,13 @@
                         <a class="gi-help" href="track-order.html">Track Order?</a>
                         <!-- Language Start -->
                         <div class="header-top-lan-curr header-top-lan dropdown">
-                            <button class="dropdown-toggle" data-bs-toggle="dropdown">English
+                            <button class="dropdown-toggle" data-bs-toggle="dropdown">Language
                                 <i class="fi-rr-angle-small-down" aria-hidden="true"></i>
                             </button>
                             <ul class="dropdown-menu">
-                                <li class="active"><a class="dropdown-item" href="#">English</a></li>
-                                <li><a class="dropdown-item" href="#">Italiano</a></li>
+                                <li><a class="dropdown-item" href="?lang=en">English</a></li>
+                                <li><a class="dropdown-item" href="?lang=ru">Русский</a></li>
+                                <li><a class="dropdown-item" href="?lang=hy">Հայերեն</a></li>
                             </ul>
                         </div>
                         <!-- Language End -->
@@ -811,8 +812,8 @@
 <section class="gi-login padding-tb-40">
     <div class="container">
         <div class="section-title-2">
-            <h2 class="gi-title">Login<span></span></h2>
-            <p>Get access to your Orders, Wishlist and Recommendations.</p>
+            <h2 class="gi-title" th:text="#{login.login}">Login<span></span></h2>
+            <p th:text="#{login.getAccess}">Get access to your Orders, Wishlist and Recommendations.</p>
         </div>
         <div class="gi-login-content">
             <div class="gi-login-box">
@@ -820,20 +821,18 @@
                     <div class="gi-login-container">
                         <div class="gi-login-form">
                             <form action="/login" method="post">
-                                    <span class="gi-login-wrap">
-                                        <label>Email Address*</label>
-                                        <input type="email" name="username" placeholder="Enter your email add..." required>
-                                    </span>
                                 <span class="gi-login-wrap">
-                                        <label>Password*</label>
-                                        <input type="password" name="password" placeholder="Enter your password"
-                                               required>
-                                    </span>
-
+                                    <label th:text="#{login.emailAddress}">Email Address*</label>
+                                    <input type="email" name="username" th:placeholder="#{login.emailAddress}" required>
+                                </span>
+                                <span class="gi-login-wrap">
+                                    <label th:text="#{login.password}">Password*</label>
+                                    <input type="password" name="password" th:placeholder="#{login.password}" required>
+                                </span>
                                 <span class="gi-login-wrap gi-login-btn">
-                                        <span><a href="/user/register" class="">Create Account?</a></span>
-                                        <button class="gi-btn-1 btn" type="submit">Login</button>
-                                    </span>
+                                    <span th:text="#{login.createAccount}"><a href="/user/register" class="">Create Account?</a></span>
+                                    <button class="gi-btn-1 btn" type="submit" th:text="#{login.login}">Login</button>
+                                </span>
                             </form>
                         </div>
                     </div>
@@ -847,6 +846,8 @@
         </div>
     </div>
 </section>
+
+
 <!-- Login section End -->
 
 <!-- Footer Start -->

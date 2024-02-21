@@ -1,7 +1,6 @@
 package com.example.onlineshope.service;
 
 import com.example.onlineshope.entity.Product;
-import com.example.onlineshope.security.SpringUser;
 
 import java.util.List;
 import java.util.Optional;
