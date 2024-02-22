@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/online_shop
+    username: root
+    password: root
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 10MB
+
+picture:
+  upload:
+    directory:
+      product: C:\\Users\\aperk\\IdeaProjects\\Online-Shope\\uploadDirectoryProduct
+      user: C:\\Users\\aperk\\IdeaProjects\\Online-Shope\\uploadDirectoryUser
+
+logging:
+  file:
+    name: C:\\Users\\aperk\\IdeaProjects\\Online-Shope\\logs\\onlineShop-%d{yyyy-MM-dd-HH-mm-ss}.%i.log
+  logback:
+    rollingpolicy:
+      max-file-size: 10MB
