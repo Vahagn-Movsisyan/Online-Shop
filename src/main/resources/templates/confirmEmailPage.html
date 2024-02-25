@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Confirmation Page</title>
+    <style>
+        #confirmationDiv {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body onload="startTimer(120)"> <!-- 120 seconds as an example -->
+
+<section class="gi-register padding-tb-40">
+    <div class="container">
+        <div class="section-title-2">
+            <h2 class="gi-title">Email Confirmation<span></span></h2>
+            <p>Please confirm your email address.</p>
+        </div>
+        <div class="row">
+            <div class="gi-register-wrapper">
+                <div class="gi-register-container">
+                    <div class="gi-register-form" id="registrationForm">
+                        <form action="/confirm/email" method="post">
+                            <label>Active Code:</label>
+                            <input type="text" name="confirmEmailCode" id="confirmEmailCode" required>
+                            <p id="timer"></p>
+                            <button class="gi-btn-1" type="submit" id="registerButton">Activate</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function startTimer(durationInSeconds) {
+        var countDownDate = new Date().getTime() + durationInSeconds * 1000;
+
+        var x = setInterval(function () {
+            var now = new Date().getTime();
+            var distance = countDownDate - now;
+
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("timer").innerHTML = minutes + "m " + seconds + "s ";
+
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("timer").innerHTML = "Expired";
+                // Optionally, you can handle what happens when the timer expires
+            }
+        }, 1000);
+    }
+
+    function handleFormSubmission(event) {
+        event.preventDefault(); // Prevent the form from submitting normally
+        // Add any additional logic you need for form submission, e.g., AJAX request
+        // You can access the entered code using document.getElementById("confirmEmailCode").value
+    }
+</script>
+</body>
+</html>

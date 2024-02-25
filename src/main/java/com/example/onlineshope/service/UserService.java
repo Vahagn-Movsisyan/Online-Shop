@@ -12,4 +12,5 @@ public interface UserService {
     User update(User user, MultipartFile multipartFile) throws IOException;
     User findByEmail(String email);
     Optional<User> findById(int id);
+    Optional<User> findUserByEmailConfirmCode(String emailConfirmCode);
 }
