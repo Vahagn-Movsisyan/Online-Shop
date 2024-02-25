@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Optional;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +23,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final SendMessageService sendMessageService;
 
     @Value("${picture.upload.directory.user}")
     private String uploadDirectory;
@@ -40,12 +42,18 @@ public class UserServiceImpl implements UserService {
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setUserRole(UserRole.USER);
-        return userRepository.save(user);
+
+        user.setEmailConfirmCode(generateEmailConfirmationCode());
+        user.setActive(false);
+
+        User register = userRepository.save(user);
+        sendMessageService.sendEmailConfirmMail(user);
+        return register;
     }
 
     @Override
     public User save(User user) {
-        return userRepository.save(user);
+         return userRepository.save(user);
     }
 
     @Override
@@ -62,5 +70,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> findById(int id) {
         return userRepository.findById(id);
+    }
+
+    @Override
+    public Optional<User> findUserByEmailConfirmCode(String emailConfirmCode) {
+        return userRepository.findUserByEmailConfirmCode(emailConfirmCode);
+    }
+
+    private String generateEmailConfirmationCode() {
+        return  Integer.toString(ThreadLocalRandom.current().nextInt(100000, 999999));
     }
 }

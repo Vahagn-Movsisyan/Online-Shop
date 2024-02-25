@@ -16,6 +16,10 @@ public class User {
     private String password;
     private String picName;
 
+    @Column(name = "confirm_email_code")
+    private String emailConfirmCode;
+    private boolean active;
+
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
 }

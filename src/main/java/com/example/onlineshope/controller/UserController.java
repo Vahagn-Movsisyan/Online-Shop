@@ -6,6 +6,7 @@ import com.example.onlineshope.exceptions.EmailIsPresentException;
 import com.example.onlineshope.exceptions.PasswordNotMuchException;
 import com.example.onlineshope.security.SpringUser;
 import com.example.onlineshope.service.UserService;
+import com.example.onlineshope.service.impl.SendMessageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -17,12 +18,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
+    private final SendMessageService sendMessageService;
 
     @GetMapping("/login/page")
     public String loginPage() {
@@ -45,6 +48,28 @@ public class UserController {
             return "user/userHome";
         }
         return "redirect:/login/page";
+    }
+
+    @GetMapping("/confirm/email/page")
+    public String confirmEmailPage() {
+        return "confirmEmailPage";
+    }
+
+    @PostMapping("/confirm/email")
+    public String confirmEmail(@RequestParam String confirmEmailCode) {
+        Optional<User> optionalUser = userService.findUserByEmailConfirmCode(confirmEmailCode);
+
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            user.setActive(true);
+            userService.save(user);
+
+            sendMessageService.send(user.getEmail(),"successMessage", "Email confirmed successfully!");
+            return "redirect:/";
+
+        } else {
+            return "redirect:/";
+        }
     }
 
     @PostMapping("/register")

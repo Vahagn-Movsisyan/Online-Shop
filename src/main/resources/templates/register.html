@@ -546,7 +546,7 @@
         <div class="row">
             <div class="gi-register-wrapper">
                 <div class="gi-register-container">
-                    <div class="gi-register-form">
+                    <div class="gi-register-form" id="registrationForm">
                         <form action="/register" method="post" enctype="multipart/form-data">
                             <span class="gi-register-wrap gi-register-half">
                                 <label th:text="#{register.firstName}">First Name*</label>
@@ -580,7 +580,7 @@
                             </span>
                             <span class="gi-register-wrap gi-register-btn">
                                 <span th:text="#{register.alreadyHaveAccount}">Already have an account?<a href="/login/page">Login</a></span>
-                                <button class="gi-btn-1" type="submit" th:text="#{register.register}">Register</button>
+                                <button class="gi-btn-1" type="submit" th:text="#{register.register}" ><a href="/confirm/email/page">Register</a></button>
                             </span>
                         </form>
                     </div>
@@ -589,7 +589,6 @@
         </div>
     </div>
 </section>
-
 <!-- Sample section End -->
 
 <!-- Footer Start -->
@@ -834,6 +833,7 @@
 <script src="/user/js/plugins/slick.min.js"></script>
 <script src="/user/js/plugins/nouislider.js"></script>
 <script src="/user/js/plugins/wow.js"></script>
+
 
 <!-- Main Js -->
 <script src="/user/js/main.js"></script>
