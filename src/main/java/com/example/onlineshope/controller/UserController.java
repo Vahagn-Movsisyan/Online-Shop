@@ -64,12 +64,10 @@ public class UserController {
             user.setActive(true);
             userService.save(user);
 
-            sendMessageService.send(user.getEmail(),"successMessage", "Email confirmed successfully!");
-            return "redirect:/";
-
-        } else {
+            sendMessageService.send(user.getEmail(), "successMessage", "Email confirmed successfully!");
             return "redirect:/";
         }
+        return "redirect:/";
     }
 
     @PostMapping("/register")
