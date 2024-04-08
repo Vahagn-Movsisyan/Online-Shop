@@ -7,6 +7,9 @@ import com.example.onlineshope.service.ProductPictureService;
 import com.example.onlineshope.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -20,6 +23,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 @RequiredArgsConstructor
@@ -38,8 +43,22 @@ public class ProductController {
     }
 
     @GetMapping("/list")
-    public String productList(ModelMap modelMap) {
-        modelMap.addAttribute("products", productService.findAll());
+    public String productList(
+            @RequestParam(value = "page", required = false, defaultValue = "0") int page,
+            @RequestParam(value = "size", required = false, defaultValue = "5") int size,
+            @RequestParam(value = "order", required = false, defaultValue = "desc") String order,
+            @RequestParam(value = "orderBy", required = false, defaultValue = "id") String orderBy,
+            ModelMap modelMap) {
+
+        modelMap.addAttribute("products", productService.findAll(PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(order), orderBy))));
+
+        int totalPages = productService.findAll(PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(order), orderBy))).getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            modelMap.addAttribute("pageNumbers", pageNumbers);
+        }
         return "admin/productList";
     }
 

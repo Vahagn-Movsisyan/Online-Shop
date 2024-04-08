@@ -18,7 +18,11 @@ spring:
     multipart:
       max-file-size: 5MB
       max-request-size: 10MB
-
+  jpa:
+    hibernate:
+      ddl-auto: update
+  liquibase:
+    change-log: classpath*:db/change-log.xml
 picture:
   upload:
     directory:

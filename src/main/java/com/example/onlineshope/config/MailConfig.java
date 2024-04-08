@@ -59,5 +59,4 @@ public class MailConfig {
         templateResolver.setCacheable(false);
         return templateResolver;
     }
-
 }

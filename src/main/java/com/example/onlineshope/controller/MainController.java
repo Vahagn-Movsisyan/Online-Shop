@@ -4,7 +4,10 @@ import com.example.onlineshope.service.CategoryService;
 import com.example.onlineshope.service.ProductService;
 import com.example.onlineshope.util.PictureUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -28,9 +31,7 @@ public class MainController {
     private String uploadDirectoryUser;
 
     @GetMapping("/")
-    public String homePage(ModelMap modelMap) {
-        modelMap.addAttribute("categories", categoryService.findAll());
-        modelMap.addAttribute("products", productService.findAll());
+    public String homePage() {
         return "user/userHome";
     }
 
@@ -39,8 +40,10 @@ public class MainController {
         return PictureUtil.getImage(picName, uploadDirectoryProduct);
     }
 
+    @SneakyThrows
     @GetMapping(value = "/getImageUser", produces = MediaType.IMAGE_JPEG_VALUE)
-    public @ResponseBody byte[] getImageUser(@RequestParam("picName") String picName) throws IOException {
+    public @ResponseBody byte[] getImageUser(@RequestParam("picName") String picName)   {
         return PictureUtil.getImage(picName, uploadDirectoryUser);
     }
+
 }
