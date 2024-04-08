@@ -12,10 +12,6 @@ public class PasswordNotMuchException extends RuntimeException {
         super(message, cause);
     }
 
-    public PasswordNotMuchException(Throwable cause) {
-        super(cause);
-    }
-
     public PasswordNotMuchException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
