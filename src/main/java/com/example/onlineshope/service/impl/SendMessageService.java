@@ -18,6 +18,7 @@ public class SendMessageService {
 
     private final JavaMailSender javaMailSender;
     private final TemplateEngine templateEngine;
+
     @Async
     public void send(String to, String subject, String message) {
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
